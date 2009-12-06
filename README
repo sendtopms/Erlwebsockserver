@@ -1,0 +1,1 @@
+This is the Erlang based HTML5 websocket implementation. Initially it targets Mochiweb but latter it will have support for YAWS and Appache.
