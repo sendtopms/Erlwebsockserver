@@ -16,7 +16,7 @@
 
 %% @spec process(OSCommand, ResultFile) -> string()
 process(OSCommand, ResultFile) ->
-    gen_server:call(?MODULE, {exec, OSCommand, ResultFile}).
+    gen_server:call(?MODULE, {process, OSCommand, ResultFile}).
 
 
 %%====================================================================
@@ -48,11 +48,8 @@ init(_Args) ->
 %%                                      {stop, Reason, Reply, State} |
 %%                                      {stop, Reason, State}
 %% Description: Handling call messages
-handle_call({exec, OSCommand, ResultFile}, _From, State) ->
-    Result = case filelib:is_regular(ResultFile) of
-        true ->  "";
-        false -> os:cmd(OSCommand)
-    end,
+handle_call({process, OSCommand, ResultFile}, _From, State) ->
+	Result = ",",
     {reply, Result, State};
 
 %% @doc Trap unknown calls
