@@ -58,7 +58,8 @@ communicate_forever(Socket) ->
 			io:format("Websocket Data got is ~p~n", [DataFrame]),
             Data1 = decode(DataFrame), 
             io:format("loop received:~p~n",[Data1]), 
-            gen_tcp:send(Socket, [0] ++ "hello from erlang" ++ [255]), 
+			ToMsg = "Hi This is Erlang based Websocket, I got your missile and it is relaunched back to you at " ++ httpd_util:rfc1123_date(),
+            gen_tcp:send(Socket, [0] ++  ToMsg ++ [255]), 
             communicate_forever(Socket); 
         Any -> 
             io:format("loop Received:~p~n",[Any])

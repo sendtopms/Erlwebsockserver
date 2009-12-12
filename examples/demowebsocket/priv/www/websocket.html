@@ -4,15 +4,16 @@
  <script>
 myWebSocket = "";
  
- webcall = function () {
-   alert("hello");
+ init = function () {
 
    if ("WebSocket" in window) {
        var ws = new WebSocket("ws://localhost:8000");
 		myWebSocket = ws;
        ws.onopen = function() {
            // Web Socket is connected. You can send data by send() method.
-           ws.send("hello from the browser");
+           msg = "Hi I am Google Chrome and got new web'on called Websocket and launching now...";
+           alert (msg);
+           ws.send(msg);
        };
 
        ws.onmessage = function (evt)
@@ -24,22 +25,23 @@ myWebSocket = "";
 
        ws.onclose = function()
            {
-               alert("closed");
+               alert("web socket is closed");
            };
    } else {
-       alert("sad");
+       alert("Opps, Am I Google Chrome???? If so check the version, I just got new DNA called Websocket");
    }
    }
- webcallnext = function () {
+ webcall = function () {
  		value1 = document.getElementById("wsid").value;
 		alert(value1);
 		myWebSocket.send(value1);
 	}
+
+	init();
 
  </script>
 
  <body>
  	 <input id="wsid" />
 	<input type="button" onclick="webcall()" value="call" />
-	<input type="button" onclick="webcallnext()" value="next-call" />
 </body>

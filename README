@@ -1,1 +1,21 @@
 This is the Erlang based HTML5 websocket implementation. Initially it targets Mochiweb but latter it will have support for YAWS and Appache.
+
+It is now working, How to run demo websocket, here is the code
+
+1. Pull the code from GitHub
+2. Compile the Mochiweb --- in the command window go (cd) to the Erlwebsockserver/deps/mochiweb and type make
+3. Next you need to comiple the demo application
+	* Go to the Erlwebsockserver/examples/demowebsocket and type make
+4. run start-dev.sh
+5. Open the Google Chrome Browser and hit the following URL
+	http://http://localhost:8000/websocket.html
+	
+	Click the "call" button, You can also enter text to see it in the server consol.... 
+	
+	
+	Sorry for the highly sophisticated webpage ;-)
+	
+	
+	This is rough draft and framework to hand over incoming packets to custom-listeners and process listeners are planned. 
+	
+	Please send your feedback/comment to sendtopms@gmail.com however it would be highly appreciated if GitHub issue tracker is used.
