@@ -1,0 +1,45 @@
+<html>
+
+<head>
+ <script>
+myWebSocket = "";
+ 
+ webcall = function () {
+   alert("hello");
+
+   if ("WebSocket" in window) {
+       var ws = new WebSocket("ws://localhost:8000");
+		myWebSocket = ws;
+       ws.onopen = function() {
+           // Web Socket is connected. You can send data by send() method.
+           ws.send("hello from the browser");
+       };
+
+       ws.onmessage = function (evt)
+           {
+
+               var data = evt.data; alert(data);
+
+           };
+
+       ws.onclose = function()
+           {
+               alert("closed");
+           };
+   } else {
+       alert("sad");
+   }
+   }
+ webcallnext = function () {
+ 		value1 = document.getElementById("wsid").value;
+		alert(value1);
+		myWebSocket.send(value1);
+	}
+
+ </script>
+
+ <body>
+ 	 <input id="wsid" />
+	<input type="button" onclick="webcall()" value="call" />
+	<input type="button" onclick="webcallnext()" value="next-call" />
+</body>
