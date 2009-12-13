@@ -1,4 +1,4 @@
-This is the Erlang based HTML5 websocket implementation. Initially it targets Mochiweb but latter it will have support for YAWS and Appache.
+This is an Erlang based HTML5 websocket implementation. Initially it targets Mochiweb but latter it will have support for YAWS and Appache.
 
 It is now working, How to run demo websocket, here is the code
 
@@ -19,3 +19,50 @@ It is now working, How to run demo websocket, here is the code
 	This is rough draft and framework to hand over incoming packets to custom-listeners and process listeners are planned. 
 	
 	Please send your feedback/comment to sendtopms@gmail.com however it would be highly appreciated if GitHub issue tracker is used.
+	
+
+Architecture
+------------
+                                    Web Server
+                                     +---------------+                ErlWebsockServer   
+                                     |               |            +---------------+   
+      WS Client                      |               |            |               |  
+    +----+                           |               |            |               |
+    |    | <--------Http GET---------o---[Upgrade]--| |---------->|               |
+    |    | <=======Web Socket========O==============|O|==========>|               |
+    +----+                           |               |            |               |
+                                     |               |            |               |                   
+    +----+                           |               |            |               |
+    |    | <--------Http GET---------o---[Upgrade]--| |---------->|               |
+    |    | <=======Web Socket========O==============|O|==========>|               |
+    +----+                           |               |            |               |
+                                     |               |            +---------------+      
+                                     |               |
+                                     +---------------+  
+                                                     
+1. Probe the incoming connection to check if it is Websocket Request
+2. If it is websocket request delegate it to ErlWebsockSever to manage the Sockets
+3. ErlWebsockSever does the Handshake & Data framing and un-framing as defined in IETF -- http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-66
+4. ErlWebsockSever is OTP gen_server and it would do following things (To be implemented)
+   1. After Websocket Handshake, moving the socket to speed lane to keep 2 way commnication happen
+   2. Data encoding/decoding 
+   3. Passes the data to the listers module --- it can be M:F or Pid with {atom, Data}
+   4. Listens to out going data and data from application is sent back to the client 
+   5. Manages # sockets ---- with 2 strategy -- (a) less frequently used Sockets (b) old sockets ---- Socket management related META DATA will be 
+      managed by combination of gen_server state and ETS tables.
+   6. Message will be transformed based on startup config options and it is going to support 
+   		1. Out going
+   			1.1 JSON
+   			1.2 Key/Vale pair
+   			1.3 erlyDTL based template transformation
+   			1.4 Streaming --- is it going against Spec???
+   			
+   		2. In Coming
+   			1.1 Binary
+   			1.2 Erlang term
+   			1.3 Stream --- As and when data received, it is push back to the listeners
+                                                      
+    7. Multiple Incoming Listeners support
+    	1. Broadcasting
+    	2. Listeners per Websocket sub protocol for incoming and outgoing data  
+    	
