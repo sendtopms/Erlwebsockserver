@@ -1,0 +1,9 @@
+ErlWebsockserver AUTHORS
+======================
+ 
+A number of people have contributed directly to Apache CouchDB by writing
+documentation or developing software. Some of these people are:
+ 
+ 
+ 
+For a list of other credits see the `THANKS` file.
