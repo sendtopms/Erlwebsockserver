@@ -14,6 +14,9 @@
 %% @author Senthilkumar Peelikkampatti <sendtopms@gmail.com>
 %% @copyright 2009 Senthilkumar Peelikkampatti.
 
+%%% This code is inspired by mochiweb_socket_server and thanks to Bob Ippolito <bob@mochimedia.com>
+%%% decode/1 is inspired by Joe Armstrong from the Thread [erlang-questions] web sockets almost working]
+
 -module(erlwebsockserver).
 -export([start/1, stop/1]).
 -export([init/1, handle_call/3, handle_cast/2, terminate/2, code_change/3,
